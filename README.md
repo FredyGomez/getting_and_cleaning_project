@@ -1,24 +1,19 @@
-Getting and Cleaning Data: Course Project
-Introduction
+Running the script
 
-This repository contains my work for the course project for the Coursera course "Getting and Cleaning data", part of the Data Science specialization. What follows first are my notes on the original data.
+Clone this repository
+Download the data set and extract. It should result in a UCI HAR Dataset folder that has all the files in the required structure.
+Change current directory to the UCI HAR Dataset folder.
+Run Rscript <path to>/run_analysis.R
+The tidy dataset should get created in the current directory as tidy.txt
+Code book for the tidy dataset is available here
+Assumptions
 
-About the raw data
-
-The features (561 of them) are unlabeled and can be found in the x_test.txt. The activity labels are in the y_test.txt file. The test subjects are in the subject_test.txt file.
-
-The same holds for the training set.
-
-About the script and the tidy dataset
-
-I created a script called run_analysis.R which will merge the test and training sets together. Prerequisites for this script:
-
-the UCI HAR Dataset must be extracted and..
-the UCI HAR Dataset must be availble in a directory called "UCI HAR Dataset"
-After merging testing and training, labels are added and only columns that have to do with mean and standard deviation are kept.
-
-Lastly, the script will create a tidy data set containing the means of all the columns per test subject and per activity. This tidy dataset will be written to a tab-delimited file called tidy.txt, which can also be found in this repository.
-
-About the Code Book
-
-The CodeBook.md file explains the transformations performed and the resulting data and variables.
+The training and test data are available in folders named train and test respectively.
+For each of these data sets:
+Measurements are present in X_<dataset>.txt file
+Subject information is present in subject_<dataset>.txt file
+Activity codes are present in y_<dataset>.txt file
+All activity codes and their labels are in a file named activity_labels.txt.
+Names of all measurements taken are present in file features.txt ordered and indexed as they appear in the X_<dataset>.txt files.
+All columns representing means contain ...mean() in them.
+All columns representing standard deviations contain ...std() in them.
