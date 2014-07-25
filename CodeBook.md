@@ -1,7 +1,8 @@
-# Original data:
+# Description
 
-source
-description
+The present document describes the transformation operations performed on the source data and list all the resultand variables out of 
+this transformations as tidy data.
+
 
 # Data Transformation Steps
 
