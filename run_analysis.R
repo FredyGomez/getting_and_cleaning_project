@@ -114,12 +114,12 @@ getTidyData <- function(merged_data) {
     dcast(melted_data, ActivityName + SubjectID ~ variable, mean)    
 }
 
-# Create the tidy data set and save it on to the named file
-createTidyDataFile <- function(filename) {
+# Main function that will export the tidy file based on the different data sources
+exportTidyDataFile <- function(filename) {
     tidy_data <- getTidyData(getMergedData())
     write.table(tidy_data, filename)
 }
 
 print("Starting process.")
-createTidyDataFile("tidy.txt")
+exportTidyDataFile("tidy.txt")
 print("Process Finished.")
