@@ -77,12 +77,13 @@ getMergedData <- function() {
    
     #merge the data sets
     mergeddata <- rbind(readTestData(), readTrainData())
+    # this part to name better the columns so it is easier to locate them (capitalize the mean and std to Mean and StD)
     cnames <- colnames(mergeddata)
     cnames <- gsub("\\.+mean\\.+", cnames, replacement="Mean")
-    cnames <- gsub("\\.+std\\.+",  cnames, replacement="Std")
+    cnames <- gsub("\\.+std\\.+",  cnames, replacement="StD")
     colnames(mergeddata) <- cnames
    
-    # apply proper acivity labels
+    # after mergin the data, extend it with the activity descriptors, mergin the match activity labels with the already merged data
     activity_labels <- read.table("activity_labels.txt", header=F, as.is=T, col.names=c("ActivityID", "ActivityName"))
     activity_labels$ActivityName <- as.factor(activity_labels$ActivityName)
     data_labeled <- merge(mergeddata, activity_labels)
