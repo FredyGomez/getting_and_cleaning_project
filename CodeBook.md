@@ -87,8 +87,10 @@ StD: Standard deviation
 
 ##Data Columns
 
-ActivityName: Activity being performed
+ActivityName: Activity being performed.
+
 SubjectID: ID indicating the subject from whom data was collected
+
 tBodyAccMeanX
 
 tBodyAccMeanY
