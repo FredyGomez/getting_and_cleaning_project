@@ -73,7 +73,7 @@ readTrainData <- function() {
 
 
 # Merge the data, add the necessary labels and prepare it to perform the necessary calculations
-getMergeData <- function() {
+getMergedData <- function() {
    
     #merge the data sets
     mergeddata <- rbind(readTestData(), readTrainData())
@@ -96,7 +96,7 @@ getTidyData <- function(merged_data) {
     
     # melt the dataset
     id_vars = c("ActivityID", "ActivityName", "SubjectID")
-    measure_vars = setdiff(colnames(merged_labeled_data), id_vars)
+    measure_vars = setdiff(colnames(merged_data), id_vars)
     melted_data <- melt(merged_data, id=id_vars, measure.vars=measure_vars)
     
     # recast 
@@ -105,14 +105,10 @@ getTidyData <- function(merged_data) {
 
 # Create the tidy data set and save it on to the named file
 createTidyDataFile <- function(fname) {
-    tidy_data <- getTidyData(mergedData())
+    tidy_data <- getTidyData(getMergedData())
     write.table(tidy_data, fname)
 }
 
-print("Assuming data files from the \"UCI HAR Dataset\" are availale in the current directory with the same structure as in the downloaded archive.")
-print("    Refer Data:")
-print("    archive: https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip")
-print("    description: dataset: http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones")
-print("Creating tidy dataset as tidy.txt...")
+print("Starting process.")
 createTidyDataFile("tidy.txt")
-print("Done.")
+print("Process Finished.")
