@@ -72,15 +72,6 @@ readTrainData <- function() {
 }
 
 
-mergeData <- function() {
-    mergeddata <- rbind(readTestData(), readTrainData())
-    cnames <- colnames(mergeddata)
-    cnames <- gsub("\\.+mean\\.+", cnames, replacement="Mean")
-    cnames <- gsub("\\.+std\\.+",  cnames, replacement="Std")
-    colnames(mergeddata) <- cnames
-    mergeddata
-}
-
 # Merge the data, add the necessary labels and prepare it to perform the necessary calculations
 getMergeData <- function() {
    
@@ -100,13 +91,13 @@ getMergeData <- function() {
 
 
 # Create a tidy data set that has the average of each variable for each activity and each subject.
-getTidyData <- function(merged_labeled_data) {
+getTidyData <- function(merged_data) {
     library(reshape2)
     
     # melt the dataset
     id_vars = c("ActivityID", "ActivityName", "SubjectID")
     measure_vars = setdiff(colnames(merged_labeled_data), id_vars)
-    melted_data <- melt(merged_labeled_data, id=id_vars, measure.vars=measure_vars)
+    melted_data <- melt(merged_data, id=id_vars, measure.vars=measure_vars)
     
     # recast 
     dcast(melted_data, ActivityName + SubjectID ~ variable, mean)    
@@ -114,7 +105,7 @@ getTidyData <- function(merged_labeled_data) {
 
 # Create the tidy data set and save it on to the named file
 createTidyDataFile <- function(fname) {
-    tidy_data <- getTidyData(MergedData())
+    tidy_data <- getTidyData(mergedData())
     write.table(tidy_data, fname)
 }
 
