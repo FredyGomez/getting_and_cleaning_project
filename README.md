@@ -29,7 +29,9 @@ Finally it performs the merging and exporting of the data.
 The script and data should be located in the same directory than the file, 
 
 
-Once the data is downloaded from the location http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones 
+Once the data is downloaded from the location:
+
+https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 
 and unzipped, it should result in a "UCI HAR Dataset" folder that has all the files in the required structure.
 
@@ -37,6 +39,8 @@ The working directory should be changed to this folder, and allocate there the s
 
 Once the script has finished, the tidy,txt file will be located in the same folder.
 
-Code book for the tidy dataset is available <link>
+Code book for the tidy dataset is available here:
+
+https://github.com/FredyGomez/getting_and_cleaning_project/blob/master/CodeBook.md
 
 
