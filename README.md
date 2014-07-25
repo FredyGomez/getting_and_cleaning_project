@@ -1,4 +1,27 @@
-Running the script
+# Getting and Cleaning Data Course Project
+
+The current repository contains the necessary script and documentation for the "Getting and Cleaning Data" course prohect.
+
+There are three different files in the repository:
+
+- README.md: current file to give an explanation of the content of the repository and an overview of the project and its functioning
+
+- run_analysis.R: script to perform the requested operations
+
+- CodeBook.md: Document with the data dictionary and transforming operations description of the project
+
+
+## run_analysis.R script
+
+### High level description
+
+The run_analysis.R perform several data capture, transformation and me
+
+
+### Instructions:
+
+The script and data should be located in the same directory than the file, 
+
 
 Clone this repository
 Download the data set and extract. It should result in a UCI HAR Dataset folder that has all the files in the required structure.
