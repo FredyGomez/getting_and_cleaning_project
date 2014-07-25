@@ -27,8 +27,9 @@ X_test/training.txt
 subect_test/training.txt
 y_test/traning.txt
 
-other common files:
-features,txt
+other common files to be used in the first and following stages:
+features.txt
+activity_labels.txt
 
 The script will read these data sets into 2 different data frames, performed by functions readTestData() and readTrainingData()
 
@@ -41,7 +42,7 @@ Read the file from the proper folder
 With the features.txt file we also get the proper column names
 
 2)
-Each of the data frames will be reduced to consider only the columns that are going to be used, using the grep function for thus
+Each of the data frames will be reduced to consider only the columns that are going to be used, using the grep function
 
 3)
 The Y data and Subject data is added to the X data at the end of the function.
@@ -49,13 +50,13 @@ The Y data and Subject data is added to the X data at the end of the function.
 
 MERGE and OTHER OPERATIONS STAGE
 
-In this stage, both data sets will be merged to create one data set.
+In this stage, both data sets (tests and training) will be merged to create one data set.
 
 This is done using the function getMergedData()
 
 This function, at the same time, adds the activity descriptive information to the single data set.
 
-After thatt, the file is aggregated using activity ID, name and Subject ID as ID variables, and using mean for the aggregator function
+After that, the file is aggregated using activity ID, name and Subject ID as ID variables, and using mean as the aggregator function
 
 The result of this aggregation is stored in a melted data frame
 
