@@ -6,67 +6,98 @@
 # This also subsets the data to extract only the measurements on the mean and standard deviation for each measurement.
 # The required columns in the subset is determined by selecting only those columns that have either "mean()" or "std()" in their names.
 # Subsetting is done early on to help reduce memory requirements.
-readData <- function(fname_suffix, path_prefix) {
-    fpath <- file.path(path_prefix, paste0("y_", fname_suffix, ".txt"))
-    y_data <- read.table(fpath, header=F, col.names=c("ActivityID"))
+
+# read test data set, in a folder named "test", and data file names suffixed with "test"
+# it will read all the necessary files in the test folder and combine them to generate a single test data set
+readTestData <- function() {
+    #Activity data read
+    y_data <- read.table("test/y_test.txt", header=F, col.names=c("ActivityID"))
     
-    fpath <- file.path(path_prefix, paste0("subject_", fname_suffix, ".txt"))
-    subject_data <- read.table(fpath, header=F, col.names=c("SubjectID"))
+    #Subject data read
+    subject_data <- read.table("test/subject_text.txt", header=F, col.names=c("SubjectID"))
     
     # read the column names
     data_cols <- read.table("features.txt", header=F, as.is=T, col.names=c("MeasureID", "MeasureName"))
     
     # read the X data file
-    fpath <- file.path(path_prefix, paste0("X_", fname_suffix, ".txt"))
-    data <- read.table(fpath, header=F, col.names=data_cols$MeasureName)
-    
-    # names of subset columns required
+    testdata <- read.table("test/X_test.txt", header=F, col.names=data_cols$MeasureName)
+
+    # and subset only the necessary column names for the data to be managed
+    # using pattern matching with the grep function and sending the output to other variable
     subset_data_cols <- grep(".*mean\\(\\)|.*std\\(\\)", data_cols$MeasureName)
+        
+    # subset the data to facilitate the merging making use of less memory in that stage
+    testdata <- testdata[,subset_data_cols]
     
-    # subset the data (done early to save memory)
-    data <- data[,subset_data_cols]
-    
-    # append the activity id and subject id columns
-    data$ActivityID <- y_data$ActivityID
-    data$SubjectID <- subject_data$SubjectID
+    # append the activity id and subject id columns previously read to the X_data set
+    testdata$ActivityID <- y_data$ActivityID
+    testdata$SubjectID <- subject_data$SubjectID
     
     # return the data
-    data
+    testdata
+
 }
 
-# read test data set, in a folder named "test", and data file names suffixed with "test"
-readTestData <- function() {
-    readData("test", "test")
-}
 
-# read test data set, in a folder named "train", and data file names suffixed with "train"
+# read train data set, in a folder named "train", and data file names suffixed with "train"
+# it will read all the necessary files in the train folder and combine them to generate a single train data set
+
 readTrainData <- function() {
-    readData("train", "train")
+    #Activity data read
+    y_data <- read.table("train/y_train.txt", header=F, col.names=c("ActivityID"))
+    
+    #Subject data read
+    subject_data <- read.table("train/subject_train.txt", header=F, col.names=c("SubjectID"))
+    
+    # read the column names
+    data_cols <- read.table("features.txt", header=F, as.is=T, col.names=c("MeasureID", "MeasureName"))
+    
+    # read the X data file
+    traindata <- read.table("train/X_train.txt", header=F, col.names=data_cols$MeasureName)
+
+    # and subset only the necessary column names for the data to be managed
+    # using pattern matching with the grep function and sending the output to other variable
+    subset_data_cols <- grep(".*mean\\(\\)|.*std\\(\\)", data_cols$MeasureName)
+        
+    # subset the data to facilitate the merging making use of less memory in that stage
+    traindata <- traindata[,subset_data_cols]
+    
+    # append the activity id and subject id columns
+    traindata$ActivityID <- y_data$ActivityID
+    traindata$SubjectID <- subject_data$SubjectID
+    
+    # return the data
+    traindata
+
 }
 
-# Merge both train and test data sets
-# Also make the column names nicer
+
 mergeData <- function() {
-    data <- rbind(readTestData(), readTrainData())
-    cnames <- colnames(data)
+    mergeddata <- rbind(readTestData(), readTrainData())
+    cnames <- colnames(mergeddata)
     cnames <- gsub("\\.+mean\\.+", cnames, replacement="Mean")
     cnames <- gsub("\\.+std\\.+",  cnames, replacement="Std")
-    colnames(data) <- cnames
-    data
+    colnames(mergeddata) <- cnames
+    mergeddata
 }
 
-# Add the activity names as another column
-applyActivityLabel <- function(data) {
+# Merge the data, add the necessary labels and prepare it to perform the necessary calculations
+getMergeData <- function() {
+   
+    #merge the data sets
+    mergeddata <- rbind(readTestData(), readTrainData())
+    cnames <- colnames(mergeddata)
+    cnames <- gsub("\\.+mean\\.+", cnames, replacement="Mean")
+    cnames <- gsub("\\.+std\\.+",  cnames, replacement="Std")
+    colnames(mergeddata) <- cnames
+   
+    # apply proper acivity labels
     activity_labels <- read.table("activity_labels.txt", header=F, as.is=T, col.names=c("ActivityID", "ActivityName"))
     activity_labels$ActivityName <- as.factor(activity_labels$ActivityName)
-    data_labeled <- merge(data, activity_labels)
+    data_labeled <- merge(mergeddata, activity_labels)
     data_labeled
 }
 
-# Combine training and test data sets and add the activity label as another column
-getMergedLabeledData <- function() {
-    applyActivityLabel(mergeData())
-}
 
 # Create a tidy data set that has the average of each variable for each activity and each subject.
 getTidyData <- function(merged_labeled_data) {
@@ -83,7 +114,7 @@ getTidyData <- function(merged_labeled_data) {
 
 # Create the tidy data set and save it on to the named file
 createTidyDataFile <- function(fname) {
-    tidy_data <- getTidyData(getMergedLabeledData())
+    tidy_data <- getTidyData(MergedData())
     write.table(tidy_data, fname)
 }
 
