@@ -1,6 +1,6 @@
 # Getting and Cleaning Data Course Project
 
-The current repository contains the necessary script and documentation for the "Getting and Cleaning Data" course prohect.
+The current repository contains the necessary script and documentation for the "Getting and Cleaning Data" course project.
 
 There are three different files in the repository:
 
@@ -17,16 +17,16 @@ There are three different files in the repository:
 
 The run_analysis.R perform several data capture, transformation and merging operations on the data.
 
-The first thing that the script does is getting the data for the different data sets, selecting inly the appropriate columns.
+The first thing that the script does is getting the data for the different data sets, selecting only the appropriate columns.
 
-It also performs a rename of the columns to make it more readable.
+It also performs a rename of the columns to make them more readable.
 
-Finally it performs the merging and exporting of the data.
+Finally it performs the merging, aggregating and exporting of the data.
 
 
 ### Instructions:
 
-The script and data should be located in the same directory than the file, 
+The script and data should be located in the same directory than the file, this is key in order to make the script run.
 
 
 Once the data is downloaded from the location:
@@ -37,7 +37,7 @@ and unzipped, it should result in a "UCI HAR Dataset" folder that has all the fi
 
 The working directory should be changed to this folder, and allocate there the script.
 
-Once the script has finished, the tidy,txt file will be located in the same folder.
+Once the script has finished, the tidy.txt file will be located in the same folder.
 
 Code book for the tidy dataset is available here:
 
