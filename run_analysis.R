@@ -11,16 +11,16 @@
 # it will read all the necessary files in the test folder and combine them to generate a single test data set
 readTestData <- function() {
     #Activity data read
-    y_data <- read.table("test/y_test.txt", header=F, col.names=c("ActivityID"))
+    y_data <- read.table("./test/y_test.txt", header=F, col.names=c("ActivityID"))
     
     #Subject data read
-    subject_data <- read.table("test/subject_text.txt", header=F, col.names=c("SubjectID"))
+    subject_data <- read.table("./test/subject_text.txt", header=F, col.names=c("SubjectID"))
     
     # read the column names
     data_cols <- read.table("features.txt", header=F, as.is=T, col.names=c("MeasureID", "MeasureName"))
     
     # read the X data file
-    testdata <- read.table("test/X_test.txt", header=F, col.names=data_cols$MeasureName)
+    testdata <- read.table("./test/X_test.txt", header=F, col.names=data_cols$MeasureName)
 
     # and subset only the necessary column names for the data to be managed
     # using pattern matching with the grep function and sending the output to other variable
@@ -44,16 +44,16 @@ readTestData <- function() {
 
 readTrainData <- function() {
     #Activity data read
-    y_data <- read.table("train/y_train.txt", header=F, col.names=c("ActivityID"))
+    y_data <- read.table("./train/y_train.txt", header=F, col.names=c("ActivityID"))
     
     #Subject data read
-    subject_data <- read.table("train/subject_train.txt", header=F, col.names=c("SubjectID"))
+    subject_data <- read.table("./train/subject_train.txt", header=F, col.names=c("SubjectID"))
     
     # read the column names
     data_cols <- read.table("features.txt", header=F, as.is=T, col.names=c("MeasureID", "MeasureName"))
     
     # read the X data file
-    traindata <- read.table("train/X_train.txt", header=F, col.names=data_cols$MeasureName)
+    traindata <- read.table("./train/X_train.txt", header=F, col.names=data_cols$MeasureName)
 
     # and subset only the necessary column names for the data to be managed
     # using pattern matching with the grep function and sending the output to other variable
