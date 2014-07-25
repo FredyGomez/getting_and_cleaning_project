@@ -1,27 +1,61 @@
-# H1
-Original data:
+# Original data:
 
 source
 description
 
-# H1
-Data Transformation Steps
+# Data Transformation Steps
 
-Following data transformations are carried out by the run_analysis.R script.
 
-For each of the training and test datasets,
-Read the X values
-Take a subset of the columns representing only the mean and standard deviation values. Subsetting is done early on to conserve memory.
-Associate additional columns to represent activity IDs and subject IDs read from y_<dataset>.txt and subject_<dataset>.txt files respectively.
-Assign column names by manipulating the measurement names in features.txt to remove spaces and convert them to camel case.
-Merge the training and the test sets, read as in step 1 to create one data set.
-Associate an additional column with descriptive activity names as specified in activity_labels.txt.
-Melt the dataset by specifying activity ID, name and subject ID as the only ID variables.
-Re cast the melted dataset with activity name and subject id as the only IDs and mean as the aggregator function.
-Save the result in re-casted dataset as tidy.txt
-Variable Descriptions
+Training and Test data sets are treated independenly initially. 
 
-The data for this data set was derived from sources mentioned in the "Original data" section of this document. Part of the description below has been taken from the original data description.
+READ STAGE
+
+For both data sets, the main data is the X values, which are read, together with the other data sets, so we have:
+
+X_test/training.txt
+subect_test/training.txt
+y_test/traning.txt
+
+other common files:
+features,txt
+
+The script will read these data sets into 2 different data frames, performed by functions readTestData() and readTrainingData()
+
+Each of these functions will:
+
+1)
+Read the file from the proper folder
+
+2)
+With the features.txt file we also get the proper column names
+
+2)
+Each of the data frames will be reduced to consider only the columns that are going to be used, using the grep function for thus
+
+3)
+The Y data and Subject data is added to the X data at the end of the function.
+
+
+MERGE and OTHER OPERATIONS STAGE
+
+In this stage, both data sets will be merged to create one data set.
+
+This is done using the function getMergedData()
+
+This function, at the same time, adds the activity descriptive information to the single data set.
+
+After thatt, the file is aggregated using activity ID, name and Subject ID as ID variables, and using mean for the aggregator function
+
+The result of this aggregation is stored in a melted data frame
+
+
+FILE EXPORT
+
+After the merging and reshaping functions, the resultant tidy data frame is expoted into an external file in the working dorectory.
+
+
+# Variable Descriptions
+
 
 The features selected for this database come from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ. These time domain signals (prefix 't' to denote time) were captured at a constant rate of 50 Hz. Then they were filtered using a median filter and a 3rd order low pass Butterworth filter with a corner frequency of 20 Hz to remove noise. Similarly, the acceleration signal was then separated into body and gravity acceleration signals (tBodyAcc-XYZ and tGravityAcc-XYZ) using another low pass Butterworth filter with a corner frequency of 0.3 Hz.
 
@@ -34,7 +68,7 @@ These signals were used to estimate variables of the feature vector for each pat
 The set of variables that were estimated from these signals are:
 
 mean: Mean value
-std: Standard deviation
+StD: Standard deviation
 Data Columns
 
 ActivityName: Activity being performed
@@ -42,66 +76,66 @@ SubjectID: ID indicating the subject from whom data was collected
 tBodyAccMeanX
 tBodyAccMeanY
 tBodyAccMeanZ
-tBodyAccStdX
-tBodyAccStdY
-tBodyAccStdZ
+tBodyAccStDX
+tBodyAccStDY
+tBodyAccStDZ
 tGravityAccMeanX
 tGravityAccMeanY
 tGravityAccMeanZ
-tGravityAccStdX
-tGravityAccStdY
-tGravityAccStdZ
+tGravityAccStDX
+tGravityAccStDY
+tGravityAccStDZ
 tBodyAccJerkMeanX
 tBodyAccJerkMeanY
 tBodyAccJerkMeanZ
-tBodyAccJerkStdX
-tBodyAccJerkStdY
-tBodyAccJerkStdZ
+tBodyAccJerkStDX
+tBodyAccJerkStDY
+tBodyAccJerkStDZ
 tBodyGyroMeanX
 tBodyGyroMeanY
 tBodyGyroMeanZ
-tBodyGyroStdX
-tBodyGyroStdY
-tBodyGyroStdZ
+tBodyGyroStDX
+tBodyGyroStDY
+tBodyGyroStDZ
 tBodyGyroJerkMeanX
 tBodyGyroJerkMeanY
 tBodyGyroJerkMeanZ
-tBodyGyroJerkStdX
-tBodyGyroJerkStdY
-tBodyGyroJerkStdZ
+tBodyGyroJerkStDX
+tBodyGyroJerkStDY
+tBodyGyroJerkStDZ
 tBodyAccMagMean
-tBodyAccMagStd
+tBodyAccMagStD
 tGravityAccMagMean
-tGravityAccMagStd
+tGravityAccMagStD
 tBodyAccJerkMagMean
-tBodyAccJerkMagStd
+tBodyAccJerkMagStD
 tBodyGyroMagMean
-tBodyGyroMagStd
+tBodyGyroMagStD
 tBodyGyroJerkMagMean
-tBodyGyroJerkMagStd
+tBodyGyroJerkMagStD
 fBodyAccMeanX
 fBodyAccMeanY
 fBodyAccMeanZ
-fBodyAccStdX
-fBodyAccStdY
-fBodyAccStdZ
+fBodyAccStDX
+fBodyAccStDY
+fBodyAccStDZ
 fBodyAccJerkMeanX
 fBodyAccJerkMeanY
 fBodyAccJerkMeanZ
-fBodyAccJerkStdX
-fBodyAccJerkStdY
-fBodyAccJerkStdZ
+fBodyAccJerkStDX
+fBodyAccJerkStDY
+fBodyAccJerkStDZ
 fBodyGyroMeanX
 fBodyGyroMeanY
 fBodyGyroMeanZ
-fBodyGyroStdX
-fBodyGyroStdY
-fBodyGyroStdZ
+fBodyGyroStDX
+fBodyGyroStDY
+fBodyGyroStDZ
 fBodyAccMagMean
-fBodyAccMagStd
+fBodyAccMagStD
 fBodyBodyAccJerkMagMean
-fBodyBodyAccJerkMagStd
+fBodyBodyAccJerkMagStD
 fBodyBodyGyroMagMean
-fBodyBodyGyroMagStd
+fBodyBodyGyroMagStD
 fBodyBodyGyroJerkMagMean
-fBodyBodyGyroJerkMagStd
+fBodyBodyGyroJerkMagStD
