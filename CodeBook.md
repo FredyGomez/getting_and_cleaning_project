@@ -3,6 +3,16 @@
 The present document describes the transformation operations performed on the source data and list all the resultand variables out of 
 this transformations as tidy data.
 
+# Source data
+
+The source data can be found in the folowing location:
+
+https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip 
+
+And the extended information about the data descriptions are in the next location:
+
+http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones 
+
 
 # Data Transformation Steps
 
