@@ -1,11 +1,9 @@
-# Returns one data set by reading and merging all component files.
-# Data set comprises of the X values, Y values and Subject IDs.
-# The path_prefix indicates the path where the data files can be found.
-# The fname_suffix indicates the file name suffix to be used to create the complete file name.
+# Script name: run_analysis.R
+# Instructions: allocate the script in the same foler of the data after uncompress it
 #
-# This also subsets the data to extract only the measurements on the mean and standard deviation for each measurement.
-# The required columns in the subset is determined by selecting only those columns that have either "mean()" or "std()" in their names.
-# Subsetting is done early on to help reduce memory requirements.
+# 
+#
+#
 
 # read test data set, in a folder named "test", and data file names suffixed with "test"
 # it will read all the necessary files in the test folder and combine them to generate a single test data set
