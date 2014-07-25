@@ -1,9 +1,20 @@
 # Script name: run_analysis.R
-# Instructions: allocate the script in the same foler of the data after uncompress it
+# Instructions: allocate the script in the same foler of the data after uncompress in:
+#  "UCI HAR Dataset" folder
 #
-# 
+# Load all the functions and run the final three lines:
+#   
+#   print("Starting process.")
+#   createTidyDataFile("tidy.txt")
+#   print("Process Finished.")
 #
+#  The script can also being run as a whole script to geenrate the results
 #
+#  Input: no input necessary, the output file name is harcoded in the script
+#
+#  Output: tidy.txt file located in "UCI HAR Dataset" folder (same folder where the script should run)
+#
+
 
 # read test data set, in a folder named "test", and data file names suffixed with "test"
 # it will read all the necessary files in the test folder and combine them to generate a single test data set
@@ -70,7 +81,7 @@ readTrainData <- function() {
 }
 
 
-# Merge the data, add the necessary labels and prepare it to perform the necessary calculations
+# Merge the data, add the necessary labels and prepare it to perform the necessary calculations later
 getMergedData <- function() {
    
     #merge the data sets
@@ -89,12 +100,13 @@ getMergedData <- function() {
 }
 
 
-# Create a tidy data set that has the average of each variable for each activity and each subject.
+# Out of all the data merged, perform the summarizing operations (average and stand)
 getTidyData <- function(merged_data) {
+    #the next library is needed for reshaping purposes, functions used in the next lines
     library(reshape2)
-    
     # melt the dataset
     id_vars = c("ActivityID", "ActivityName", "SubjectID")
+    #getting the proper ID values and measure values for the column names to be used in the data melting
     measure_vars = setdiff(colnames(merged_data), id_vars)
     melted_data <- melt(merged_data, id=id_vars, measure.vars=measure_vars)
     
@@ -103,9 +115,9 @@ getTidyData <- function(merged_data) {
 }
 
 # Create the tidy data set and save it on to the named file
-createTidyDataFile <- function(fname) {
+createTidyDataFile <- function(filename) {
     tidy_data <- getTidyData(getMergedData())
-    write.table(tidy_data, fname)
+    write.table(tidy_data, filename)
 }
 
 print("Starting process.")
